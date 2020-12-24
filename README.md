@@ -1,2 +1,2 @@
-# MISC
-Repository used to store information that is used in the process of experimentation and learning
+# Experimentation
+Repository used for experimentation and play when learning new concepts or ideas.
