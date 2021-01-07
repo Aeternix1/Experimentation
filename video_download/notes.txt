@@ -1,0 +1,13 @@
+06/01/2021
+    + Want to be able to specify titles for videos before downloading them
+07/01/2021 
+    + Done
+    + Use
+        1. Save a url file with the following structure: 
+            <Title>
+            <URL>
+        2. The code uses line 1 as the title for the url on line 2
+        3. Means that it is necessary to follow the formatting strictly
+        4. Specify the url using the logic in the script for now
+    + Upgrades 
+        1. Run argument in as a cmd line variable [DONE]
