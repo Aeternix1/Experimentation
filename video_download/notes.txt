@@ -11,3 +11,5 @@
         4. Specify the url using the logic in the script for now
     + Upgrades 
         1. Run argument in as a cmd line variable [DONE]
+        2. Remove all the URLS that are successfully downloaded 
+        3. Error conditions and preserving urls w/errors
