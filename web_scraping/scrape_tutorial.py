@@ -1,18 +1,17 @@
 from bs4 import BeautifulSoup
 import requests 
 
-source = requests.get('http://en.wikipedia.org/wiki/Yoel_Romero')
+url = 'https://en.wikipedia.org/wiki/Yoel_Romero'
+source = requests.get(url)        
+#Requests has an attribute containing text
+data = source.text
+soup = BeautifulSoup(data, 'lxml') 
 
-with open(source) as html_file: 
-    soup = BeautifulSoup(html_file, 'lxml') 
+match = soup.find("table")
+# print(match.prettify()) 
 
-print(soup.prettify())  
-
-match = soup.title  
-
-print(match) 
-
-match = soup.p
-print(match)
-
+#find(name, attrs, recursive, text, **kwargs)
+rows = match.find_all(name="tr") 
+for row in rows: 
+    print(row.text.strip())
 
