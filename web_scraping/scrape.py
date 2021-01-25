@@ -1,23 +1,40 @@
 from bs4 import BeautifulSoup
 import requests 
 
-#This is a string formatted in HTML
-helloworld = "<p> Hello World </p>" 
-soup_string = BeautifulSoup(helloworld, 'lxml')  
+################### REQUESTS ################################################ 
 
-#We can also parse a file-like object
-url = 'https://en.wikipedia.org/wiki/Yoel_Romero'    
-
-#requests.get(url) retrieves all the data associated with a request 
-#the text object contains the .html file
-source = requests.get(url)    
-# print(source.text)
-
-#BeautifulSoup requires a .html file to be parsed
-soup_file = BeautifulSoup(source.text, 'lxml')
-
-
-#The parsed value contains all of the formatting and uses it
-#The markup is used to represent BeautifulSoup objects
+# The parser keeps the markup  
+# This is used to represent BeautifulSoup objects
+helloworld = "<p> Hello World </p>"  
+soup_string = BeautifulSoup(helloworld, 'lxml')   
 print(soup_string) 
-print(soup_file)
+
+#We can also parse a file-like object using requests
+url = 'https://en.wikipedia.org/wiki/Yoel_Romero'    
+requests.get(url)
+source = requests.get(url)
+soup_req = BeautifulSoup(source.text, 'lxml')
+# print(soup_req)  
+
+######################  TAGS   ##############################################
+
+html_atag = """<html>
+<body><p>Test html a tag example </p>
+<a href="http://www.packtpup.com">Home</a>
+<a href="http://www.packtpup.com/books">Books</a>
+</body>
+</html>""" 
+soup = BeautifulSoup(html_atag, 'lxml') 
+
+#atag is an object containing all the data associated with the first <a> 
+#within the object there are attributes that can be accessed such as: 
+#class, id, href and style
+atag = soup.a  
+print(atag.attrs)  
+print(atag['href'])   
+#Printing the string value of the tag
+print(atag.string)
+
+#########################  FIND  ###########################################
+
+
