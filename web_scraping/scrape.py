@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
-import requests 
+import requests  
+import sys
 
 ################### REQUESTS ################################################ 
 
@@ -50,38 +51,50 @@ import requests
 # print(summary.text)
 
 # Exercise : Loop through multiple fighters and retrieve the title + wiki
+# Exercise : Retrieve the Win/Loss Table of a fighter 
+
 # summary + summary table
 wiki_url = 'https://en.wikipedia.org/wiki/' 
-fighters = ["Yoel Romero", "Dustin Poirier", "Connor McGregor"]   
+# fighters = ["Yoel Romero", "Dustin Poirier", "Connor McGregor"]    
+fighters = ["Yoel Romero"]
 
-# Given a fighter name, produce it's wikipedia URL
-for fighter in fighters: 
-    tmp = fighter.split()
-    fighter = "_".join(tmp)   
-    url = wiki_url + fighter  
+#Output file
+with open("fighters.txt", 'w') as f: 
+    sys.stdout = f
+
+    # Given a fighter name, produce it's wikipedia URL
+    for fighter in fighters: 
+        tmp = fighter.split()
+        fighter = "_".join(tmp)   
+        url = wiki_url + fighter  
+        
+        #Parse the URL and access the heading, table and opening summary paragraph
+        requests.get(url)
+        source = requests.get(url)
+        soup = BeautifulSoup(source.text, 'lxml')
+        title = soup.h1
+        print(title.text)
+        tables = soup.find_all("table") 
+        for x in range(0, len(tables)): 
+            if "Professional record breakdown" in tables[x].text:
+                wl_record = tables[x]
+                p_record = tables[x + 1]
+
+        # print(wl_record.text) 
+        tables = [wl_record, p_record]   
+
+        for table in tables:
+            t_entries = table.find_all("td")
+            for entry in t_entries:
+                print(entry.text.strip())
+
+        # #Print off the tr and th
+        # for x in range(0, 20): 
+            # print(table_heading[x].text)
+            # print(table_value[x+1].text) 
+            
     
-    #Parse the URL and access the heading, table and opening summary paragraph
-    requests.get(url)
-    source = requests.get(url)
-    soup = BeautifulSoup(source.text, 'lxml')
-    title = soup.h1
-    print(title.text)
-    summary = soup.find_all("p")
-    print(summary[0].text)
-    print(summary[1].text)  
-    table = soup.find("table", class_="infobox vcard")   
-    table_heading = soup.find_all("th", scope="row")
-    table_value = soup.find_all("td") 
-    
-    #Print off the tr and th
-    for x in range(0, 20): 
-        print(table_heading[x].text)
-        print(table_value[x+1].text) 
     # print(table_heading)  
     # print(table_value)
     # Need consistent formatting to scrape without introducing exception logic 
-
-
-#########################  FIND  ###########################################
-
 
