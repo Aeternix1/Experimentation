@@ -80,8 +80,7 @@ with open("fighters.txt", 'w') as f:
                 wl_record = tables[x]
                 p_record = tables[x + 1]
 
-        # print(wl_record.text) 
-        tables = [wl_record, p_record]   
+        tables = [wl_record]   
 
         for table in tables:
             t_entries = table.find_all("td")
