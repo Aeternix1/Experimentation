@@ -1,0 +1,2 @@
+name, wins, losses
+Connor McGregor, 17, 20
